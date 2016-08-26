@@ -126,10 +126,10 @@ plot(density(trees$Height), main="Trees by Height")
 mtcars
 hist(mtcars$mpg)
 
+
 #Manually adjust the characteristics of your graph
-hist(mtcars$mpg, breaks=c(10,20,30,40), main="Name of my graph", col="blue", border="red", ylab="Frequency", xlab="Miles per Gallon")
-
-
+hist(mtcars$mpg, breaks=c(10,20,30,40), main="Cars N Stuff", col="blue", border="green", ylab="Frequency", xlab="Miles per Gallon", labels = TRUE)
+?hist
 
 #We can also do basic scatterplots to look at our data, and fit a regression line
 attach(mtcars)
@@ -158,6 +158,7 @@ plot(me, type="o", col="blue", ylim=c(0,12), axes=FALSE, ann=FALSE)
 
 #Use "lines" to add a line to a preexisting plot. Make sure we can distinguish my sleep from my roommate's using line type and point type
 lines(roommate, type="o", pch=22, lty=2, col="red")
+#lty is line type, dotted line in this case
 
 #Just like points, there are many "line type" (lty) options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash. You can also call them using character strings: "blank", "solid", "dashed", "dotted", "dotdash", "longdash", or "twodash", where "blank" uses ‘invisible lines’ (i.e., does not draw them)
 
@@ -257,6 +258,7 @@ pdfy<-function(y){
   
   ifelse(y<0,0,ifelse(y>1,0,ifelse(y!=1,2*y,NA)))
 }
+
 
 #Rather than using plot, we can also use curve(). Here "from=" and "to=" serve the same function as our "xlim=" in plot(). I've also labeled my axes here, which is good plotting practice.
 curve(pdfy,from=-.5,to=1.5,xlab="y",ylab="f(y)")
