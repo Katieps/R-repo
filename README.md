@@ -5,3 +5,4 @@ Initial repo linked with R
 
 install.packages("rmarkdown")
 library("rmarkdown")
+getwd()
