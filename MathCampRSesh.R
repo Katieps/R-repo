@@ -7,17 +7,17 @@
 library(MASS)
 library(foreign)
 
-setwd("/Users/Sarah Bouchat/Dropbox/WISC/Math Camp")
-
 qog<-read.dta("qog_std_cs_jan16.dta")
 # Note that if you read in a .csv file or a different data type (for example, a .asc file), you may need to add an additional argument header=TRUE
 
 #attributes(qog) You can do this with smaller datasets, but maybe don't with qog
 summary(qog$wvs_trust)
+str(qog)
 #Ditto for the above command. With smaller datasets you can just do summary(nameofdataset) but for something this large, you should probably only do summaries of single variables at a time
 
 head(qog) #this just gives you the first few rows. Again, useful for smaller datasets to make sure you've loaded everything correctly
 
+#Puts the entire dataset in working memory
 attach(qog)
 
 
@@ -30,8 +30,8 @@ attach(qog)
 
 #Practice creating a "new" variable
 qog$wdi.log.gdp<-log(wdi_gdp)
-
-#Dealing with missing data: DANGER
+head(qog$wdi.log.gdp)
+#Dealing with missing data: DANGER be careful
 qog.nona<-na.omit(qog)
 
 #You'll learn more advanced methods for dealing with missingness (imputation) in MLE
@@ -42,8 +42,10 @@ qog.nona<-na.omit(qog)
 
 #Let's use our good friends the snails as an example
 data(snails)
+str(snails)
 
 #Let's say that the 96th row contained one NA--that lab tech fell asleep and knocked over the snails and they escaped, perhaps
+#Create a new dataset without *row* 96
 snails.nomiss<-snails[-96,]
 #This just drops the single "missing" observation in row 96 [note that this drops THE ENTIRE ROW in which there was a missing observation]
 attach(snails.nomiss)
@@ -51,8 +53,8 @@ attach(snails.nomiss)
 #Note that the documentation for this data thinks this experiment is unusual in its relatively low fatality rate. That might suggest that we want to bin some of the low mortality observations. Let's pretend we don't think there's that much difference between 7 and 8 deaths or 14 and 16 deaths, etc., and just recode into "high death" and "low death" cases
 
 #Here's just one way to do that
-
 snails.nomiss$deathHL<-NA
+
 #We've created a new empty variable rather than rewriting the old Deaths variable
 
 snails.nomiss$deathHL[snails.nomiss$Deaths>=9]<-1
@@ -98,6 +100,7 @@ newqog$cname
 # You can also subset by more than one variable with either 'and' (&) or 'or' (|) operators
 newqog2 <- qog[ which(qog$myregions==7 & qog$wdi_gdpc>500),]
 newqog2$cname
+
 # This is creating a limited dataset that only includes democracies in Southeast Asia. I can also do this with other mathematical operators:
 
 newqog3 <- qog[ which(qog$myregions==7 | qog$dpi_erlc=='1. Right'),]
